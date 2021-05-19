@@ -1,0 +1,90 @@
+﻿<Page x:Class="languageSchool.Admin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:languageSchool"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="900"
+      Title="Admin">
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <StackPanel Visibility="Collapsed" Name="StackPanel_new_Zap">
+                    <TextBlock>Введите данные</TextBlock>
+                    <TextBlock>Название услуги:</TextBlock>
+                    <TextBox Name="new_title"></TextBox>
+                    <TextBlock>Цена (руб):</TextBlock>
+                    <TextBox Name="new_cost"></TextBox>
+                    <TextBlock>Время(минут):</TextBlock>
+                    <TextBox Name="new_time"></TextBox>
+                    <TextBlock>Скидка (%):</TextBlock>
+                    <TextBox Name="new_discount"></TextBox>
+                    <TextBlock>Картинка:</TextBlock>
+                    <TextBox Name="new_path"></TextBox>
+                    <Button Name="new_path_btn" Content="Выбрать картинку" Click="new_path_btn_Click"></Button>
+                    <Button Name="Save_new_red" Content="Сохранить изменения" Click="Save_new_red_Click"></Button>
+                </StackPanel>
+                <StackPanel>
+                    <Button Name="New_Zap" Content="Создать новую запись" Click="New_Zap_Click"></Button>
+                </StackPanel>
+                <StackPanel Name="DataGrid">
+                <DataGrid Name="DGServises" AutoGenerateColumns="False" HorizontalAlignment="Left" IsReadOnly="False" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Initialized="StackPanel_Initialized">
+                                        <StackPanel>
+                                            <MediaElement Width="100" Height="100" Initialized="MediaElement_Initialized" Margin="5"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                <TextBlock Initialized="TextBlock_Initialized"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                <TextBlock Initialized="TextBlock_priceSkidos_Initialized"></TextBlock>
+                                                <TextBlock Initialized="TextBlock_price_Initialized"></TextBlock>
+                                                <TextBlock Initialized="TextBlock_time_Initialized"></TextBlock>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <TextBlock Initialized="TextBlock_Skidos_Initialized"></TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                                <Button Name="BRed" Content="Редактировать" Initialized="BRed_Initialized" Click="BRed_Click" Width="100" Height="20" Margin="10"/>
+                                                <Button Name="Bdel" Content="Удалить" Initialized="Bdel_Initialized" Click="Bdel_Click" Width="70" Height="20" Margin="0"/>
+                                                <Button Name="Bnew" Content="Новый заказ" Initialized="Bnew_Initialized" Click="Bnew_Click" Width="80" Height="20" Margin="10"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+                <StackPanel Visibility="Collapsed" Name="StakPanel_Redact">
+                    <Button Name="back" Content="Назад" Click="back_Click"></Button>
+                    <TextBlock>ID</TextBlock>
+                    <TextBlock Name="id_servises"></TextBlock>
+                    <TextBlock>Название услуги: </TextBlock>
+                    <TextBox Name="title_servises"></TextBox>
+                    <TextBlock>Цена (руб):</TextBlock>
+                    <TextBox Name="cost_servises"></TextBox>
+                    <TextBlock>Время(минут):</TextBlock>
+                    <TextBox Name="time_servises"></TextBox>
+                    <TextBlock>Скидка (%): </TextBlock>
+                    <TextBox Name="discount_servises"></TextBox>
+                    <TextBlock>Картинка:</TextBlock>
+                    <TextBox Name="path_servises"></TextBox>
+                    <Button Name="Image_redakt" Content="Выбрать картинку" Click="Image_redakt_Click"></Button>
+                    <Button Name="Save_red" Content="Сохранить изменения" Click="Save_red_Click"></Button>
+                </StackPanel>
+            </StackPanel>
+
+            
+            
+        </ScrollViewer>
+    </Grid>
+</Page>
