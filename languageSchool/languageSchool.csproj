@@ -182,6 +182,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="school_logo.png" />
     <Resource Include="school_logo.ico" />
   </ItemGroup>
   <ItemGroup>

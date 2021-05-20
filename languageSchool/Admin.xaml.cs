@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,10 +23,14 @@ namespace languageSchool
     public partial class Admin : Page
     {
         List<Service> ServiswList = ClassBase.EM.Service.ToList();
+        List<Client> ClientsList = ClassBase.EM.Client.ToList();
         public Admin()
         {
             InitializeComponent();
             DGServises.ItemsSource = ServiswList;
+            newZakaz_ListPeople.ItemsSource = ClientsList;
+            newZakaz_ListPeople.SelectedValuePath = "ID";
+            newZakaz_ListPeople.DisplayMemberPath = "People";
         }
         int i = -1;
         int index;
@@ -221,8 +226,14 @@ namespace languageSchool
         {
             Button BtnRed = (Button)sender;
             int ind = Convert.ToInt32(BtnRed.Uid);
+            index = Convert.ToInt32(BtnRed.Uid);
             Service S = ServiswList[ind];
-            MessageBox.Show(S.Title);
+            StackPanel_newZakaz.Visibility = Visibility.Visible;
+            DataGrid.Visibility = Visibility.Collapsed;
+            New_Zap.Visibility = Visibility.Collapsed;
+            newZakaz_title.Text = "Название услуги: " + S.Title;
+            newZakaz_time.Text = "Время: " + S.DurationInSeconds / 60 + " минут";
+            
 
         }
 
@@ -276,6 +287,82 @@ namespace languageSchool
                 string Len = Path.Substring(c);
                 new_path.Text = Len.ToString();
             }
+        }
+        private void newZakaz__btn_Click(object sender, RoutedEventArgs e)
+        {
+            New_Zap.Visibility = Visibility.Visible;
+            StackPanel_newZakaz.Visibility = Visibility.Collapsed;
+            DataGrid.Visibility = Visibility.Visible;
+        }
+
+        private void addNewZakaz__hidden_Click(object sender, RoutedEventArgs e)
+        {
+            New_Zap.Visibility = Visibility.Collapsed;
+            DataGrid.Visibility = Visibility.Visible;
+            StackPanel_new_Zap.Visibility = Visibility.Visible;
+        }
+
+        private void newZakaz_ListPeople_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = newZakaz_ListPeople.SelectedIndex + 1;
+        }
+        DateTime DT;
+        private void newZakaz_changeSecondTime_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                Regex r1 = new Regex("[0-1][0-9]:[0-5][0-9]");
+                Regex r2 = new Regex("2[0-3]:[0-5][0-9]");
+                if ((r1.IsMatch(newZakaz_changeSecondTime.Text) || r2.IsMatch(newZakaz_changeSecondTime.Text)) && newZakaz_changeSecondTime.Text.Length == 5)
+                {
+                    MessageBox.Show(newZakaz_changeSecondTime.Text);
+                    TimeSpan TS = TimeSpan.Parse(newZakaz_changeSecondTime.Text);
+                    DT = Convert.ToDateTime(newZakaz_datePicker.SelectedDate);
+                    DT = DT.Add(TS);
+                    if (DT > DateTime.Now)
+                    {
+                        MessageBox.Show(DT + "");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Слишком поздно");
+                        newZakaz_saveBtn.IsEnabled = false;
+                    }
+                }
+                else
+                {
+                    if (newZakaz_changeSecondTime.Text.Length > 5)
+                    {
+                        MessageBox.Show("Время указано неверно");
+                        newZakaz_saveBtn.IsEnabled = false;
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Что-то пошло не так");
+            }
+        }
+
+        private void newZakaz_saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int ind = index;
+            Service S = ServiswList[ind];
+            int client = newZakaz_ListPeople.SelectedIndex + 1;
+
+            ClientService ClientServiceObject = new ClientService()
+            {
+                ClientID = client,
+                ServiceID = S.ID,
+                StartTime = DT,
+            };
+
+
+            ClassBase.EM.ClientService.Add(ClientServiceObject);
+            MessageBox.Show("Запись добавлена");
+            ClassBase.EM.SaveChanges();
+            ClassFrame.frame.Navigate(new Admin());
+
         }
     }
 }

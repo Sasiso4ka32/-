@@ -5,32 +5,47 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:languageSchool"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="900"
+      d:DesignHeight="550" d:DesignWidth="600"
       Title="Admin">
 
     <Grid>
         <ScrollViewer>
             <StackPanel>
-                <StackPanel Visibility="Collapsed" Name="StackPanel_new_Zap">
-                    <TextBlock>Введите данные</TextBlock>
-                    <TextBlock>Название услуги:</TextBlock>
-                    <TextBox Name="new_title"></TextBox>
-                    <TextBlock>Цена (руб):</TextBlock>
-                    <TextBox Name="new_cost"></TextBox>
-                    <TextBlock>Время(минут):</TextBlock>
-                    <TextBox Name="new_time"></TextBox>
-                    <TextBlock>Скидка (%):</TextBlock>
-                    <TextBox Name="new_discount"></TextBox>
-                    <TextBlock>Картинка:</TextBlock>
-                    <TextBox Name="new_path"></TextBox>
-                    <Button Name="new_path_btn" Content="Выбрать картинку" Click="new_path_btn_Click"></Button>
-                    <Button Name="Save_new_red" Content="Сохранить изменения" Click="Save_new_red_Click"></Button>
+                <StackPanel Orientation="Horizontal" >
+                    <StackPanel x:Name="logo__stack" Margin="10 10 10 10">
+                        <Image Source="school_logo.png" Width="60" Height="60" Margin="20" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Margin="100 40 10 10">
+                        <Button Name="New_Zap" Content="Создать новую запись" Click="New_Zap_Click" Template="{Binding Source={StaticResource ResourceKey=Button_Template__AddNew}}"></Button>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel>
-                    <Button Name="New_Zap" Content="Создать новую запись" Click="New_Zap_Click"></Button>
+                <StackPanel Visibility="Collapsed" Name="StackPanel_new_Zap" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource forTextBlocks}">Введите данные</TextBlock>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Название услуги:</TextBlock>
+                    <TextBox Name="new_title" Style="{StaticResource forTextBoxes}"></TextBox>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Цена (руб):</TextBlock>
+                    <TextBox Name="new_cost" Style="{StaticResource forTextBoxes}"></TextBox>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Время(минут):</TextBlock>
+                    <TextBox Name="new_time" Style="{StaticResource forTextBoxes}"></TextBox>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Скидка (%):</TextBlock>
+                    <TextBox Name="new_discount" Style="{StaticResource forTextBoxes}"></TextBox>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Картинка:</TextBlock>
+                    <TextBox Name="new_path" Style="{StaticResource forTextBoxes}"></TextBox>
+                    <Button Name="new_path_btn" Template="{Binding Source={StaticResource ResourceKey=Button_Template__TableButtons}}" Margin="10" Content="Выбрать картинку" Click="new_path_btn_Click"></Button>
+                    <Button Name="Save_new_red" Template="{Binding Source={StaticResource ResourceKey=Button_Template__TableButtons}}" Margin="10" Content="Сохранить изменения" Click="Save_new_red_Click"></Button>
                 </StackPanel>
-                <StackPanel Name="DataGrid">
-                <DataGrid Name="DGServises" AutoGenerateColumns="False" HorizontalAlignment="Left" IsReadOnly="False" CanUserAddRows="False">
+
+                <StackPanel x:Name="StackPanel_newZakaz" Visibility="Collapsed" HorizontalAlignment="Center">
+                    <Button x:Name="newZakaz__btn" Template="{Binding Source={StaticResource ResourceKey=Button_Template__TableButtons}}" Click="newZakaz__btn_Click" Margin="0 5 0 5">Назад</Button>
+                    <TextBlock x:Name="newZakaz_title" Style="{StaticResource forTextBlocks}"></TextBlock>
+                    <TextBlock x:Name="newZakaz_time" Style="{StaticResource forTextBlocks}"></TextBlock>
+                    <ComboBox x:Name="newZakaz_ListPeople" SelectionChanged="newZakaz_ListPeople_SelectionChanged"></ComboBox>
+                    <DatePicker x:Name="newZakaz_datePicker"></DatePicker>
+                    <TextBox x:Name="newZakaz_changeSecondTime" TextChanged="newZakaz_changeSecondTime_TextChanged"></TextBox>
+                    <Button x:Name="newZakaz_saveBtn" Template="{Binding Source={StaticResource ResourceKey=Button_Template__TableButtons}}" Margin="0 5 0 5" Click="newZakaz_saveBtn_Click">Добавить новый заказ</Button>
+                </StackPanel>
+                <StackPanel Name="DataGrid" HorizontalAlignment="Center">
+                <DataGrid Name="DGServises" AutoGenerateColumns="False" HorizontalAlignment="Left" IsReadOnly="False" CanUserAddRows="False" >
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
@@ -44,17 +59,17 @@
                                                 <TextBlock Initialized="TextBlock_Initialized"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                <TextBlock Initialized="TextBlock_priceSkidos_Initialized"></TextBlock>
-                                                <TextBlock Initialized="TextBlock_price_Initialized"></TextBlock>
-                                                <TextBlock Initialized="TextBlock_time_Initialized"></TextBlock>
+                                                    <TextBlock Initialized="TextBlock_priceSkidos_Initialized" Style="{StaticResource forTextBlocks}"></TextBlock>
+                                                    <TextBlock Initialized="TextBlock_price_Initialized" Style="{StaticResource forTextBlocks}"></TextBlock>
+                                                    <TextBlock Initialized="TextBlock_time_Initialized" Style="{StaticResource forTextBlocks}"></TextBlock>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Initialized="TextBlock_Skidos_Initialized"></TextBlock>
+                                                    <TextBlock Initialized="TextBlock_Skidos_Initialized" Style="{StaticResource forTextBlocks}"></TextBlock>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                                                <Button Name="BRed" Content="Редактировать" Initialized="BRed_Initialized" Click="BRed_Click" Width="100" Height="20" Margin="10"/>
-                                                <Button Name="Bdel" Content="Удалить" Initialized="Bdel_Initialized" Click="Bdel_Click" Width="70" Height="20" Margin="0"/>
-                                                <Button Name="Bnew" Content="Новый заказ" Initialized="Bnew_Initialized" Click="Bnew_Click" Width="80" Height="20" Margin="10"/>
+                                                    <Button Name="BRed" Template="{Binding Source={StaticResource ResourceKey=Button_Template__TableButtons}}" Content="Редактировать" Initialized="BRed_Initialized" Click="BRed_Click" Margin="5" />
+                                                    <Button Name="Bdel" Template="{Binding Source={StaticResource ResourceKey=Button_Template__TableButtons}}" Content="Удалить" Initialized="Bdel_Initialized" Click="Bdel_Click" />
+                                                    <Button Name="Bnew" Template="{Binding Source={StaticResource ResourceKey=Button_Template__TableButtons}}" Content="Новый заказ" Initialized="Bnew_Initialized" Click="Bnew_Click"  Margin="5" />
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
@@ -64,22 +79,22 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-                <StackPanel Visibility="Collapsed" Name="StakPanel_Redact">
-                    <Button Name="back" Content="Назад" Click="back_Click"></Button>
-                    <TextBlock>ID</TextBlock>
-                    <TextBlock Name="id_servises"></TextBlock>
-                    <TextBlock>Название услуги: </TextBlock>
+                <StackPanel Visibility="Collapsed" Name="StakPanel_Redact" HorizontalAlignment="Center">
+                    <Button Name="back" Content="Назад" Click="back_Click" Template="{Binding Source={StaticResource ResourceKey=Button_Template__TableButtons}}"></Button>
+                    <TextBlock Style="{StaticResource forTextBlocks}">ID</TextBlock>
+                    <TextBlock Name="id_servises" Style="{StaticResource forTextBlocks}"></TextBlock>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Название услуги: </TextBlock>
                     <TextBox Name="title_servises"></TextBox>
-                    <TextBlock>Цена (руб):</TextBlock>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Цена (руб):</TextBlock>
                     <TextBox Name="cost_servises"></TextBox>
-                    <TextBlock>Время(минут):</TextBlock>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Время(минут):</TextBlock>
                     <TextBox Name="time_servises"></TextBox>
-                    <TextBlock>Скидка (%): </TextBlock>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Скидка (%): </TextBlock>
                     <TextBox Name="discount_servises"></TextBox>
-                    <TextBlock>Картинка:</TextBlock>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Картинка:</TextBlock>
                     <TextBox Name="path_servises"></TextBox>
-                    <Button Name="Image_redakt" Content="Выбрать картинку" Click="Image_redakt_Click"></Button>
-                    <Button Name="Save_red" Content="Сохранить изменения" Click="Save_red_Click"></Button>
+                    <Button Name="Image_redakt" Template="{Binding Source={StaticResource ResourceKey=Button_Template__TableButtons}}" Content="Выбрать картинку" Click="Image_redakt_Click" Margin="10"></Button>
+                    <Button Name="Save_red" Template="{Binding Source={StaticResource ResourceKey=Button_Template__TableButtons}}" Content="Сохранить изменения" Click="Save_red_Click" Margin="10"></Button>
                 </StackPanel>
             </StackPanel>
 
