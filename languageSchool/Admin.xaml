@@ -17,7 +17,33 @@
                     </StackPanel>
                     <StackPanel Margin="100 40 10 10">
                         <Button Name="New_Zap" Content="Создать новую запись" Click="New_Zap_Click" Template="{Binding Source={StaticResource ResourceKey=Button_Template__AddNew}}"></Button>
+                        <StackPanel>
+                            <TextBlock Margin="5">Количество записей в таблице:</TextBlock>
+                            <TextBlock Name="Statistiks_All" Initialized="Statistiks_All_Initialized"></TextBlock>
+                            <TextBlock Margin="5">Количество записей выведено: </TextBlock>
+                            <TextBlock Name="Statistiks_vivod"></TextBlock>
+                        </StackPanel>
                     </StackPanel>
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Name="Sort_vozr" Content="по возрастанию" Template="{Binding Source={StaticResource ResourceKey=Button_Template__AddNew}}" Click="Sort_vozr_Click" Width="180" Margin="5"></Button>
+                        <Button Name="Sort_ybuv" Content="по убыванию" Template="{Binding Source={StaticResource ResourceKey=Button_Template__AddNew}}" Click="Sort_ybuv_Click" Width="180"></Button>
+                        <Button Name="Not_Sort" Content="Без сортировки" Template="{Binding Source={StaticResource ResourceKey=Button_Template__AddNew}}" Click="Not_Sort_Click" Width="180" Margin="5"></Button>
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Выберите размер скидки</TextBlock>
+                    <ComboBox Name="Filter" Width="200" SelectionChanged="Filter_SelectionChanged">
+                        <ComboBoxItem Content="Без фильтра"></ComboBoxItem>
+                        <ComboBoxItem Content="0 - 5%"></ComboBoxItem>
+                        <ComboBoxItem Content="5 - 15%"></ComboBoxItem>
+                        <ComboBoxItem Content="15 - 30%"></ComboBoxItem>
+                        <ComboBoxItem Content="30 - 70%"></ComboBoxItem>
+                        <ComboBoxItem Content="70 - 100%"></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock>Введите название услуги:</TextBlock>
+                    <TextBox Name="TBPoisk" TextChanged="TBPoisk_TextChanged" Width="400" Margin="0 0 0 5"></TextBox>
                 </StackPanel>
                 <StackPanel Visibility="Collapsed" Name="StackPanel_new_Zap" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource forTextBlocks}">Введите данные</TextBlock>
@@ -59,7 +85,7 @@
                                                 <TextBlock Initialized="TextBlock_Initialized"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                    <TextBlock Initialized="TextBlock_priceSkidos_Initialized" Style="{StaticResource forTextBlocks}"></TextBlock>
+                                                    <TextBlock Initialized="TextBlock_priceSkidos_Initialized" Style="{StaticResource forTextBlocks}" Name="priceSkidos"></TextBlock>
                                                     <TextBlock Initialized="TextBlock_price_Initialized" Style="{StaticResource forTextBlocks}"></TextBlock>
                                                     <TextBlock Initialized="TextBlock_time_Initialized" Style="{StaticResource forTextBlocks}"></TextBlock>
                                             </StackPanel>

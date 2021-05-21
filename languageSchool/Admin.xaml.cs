@@ -23,10 +23,12 @@ namespace languageSchool
     public partial class Admin : Page
     {
         List<Service> ServiswList = ClassBase.EM.Service.ToList();
+        List<Service> ServiswList1 = ClassBase.EM.Service.ToList();
         List<Client> ClientsList = ClassBase.EM.Client.ToList();
         public Admin()
         {
             InitializeComponent();
+            ServiswList = ServiswList1;
             DGServises.ItemsSource = ServiswList;
             newZakaz_ListPeople.ItemsSource = ClientsList;
             newZakaz_ListPeople.SelectedValuePath = "ID";
@@ -79,8 +81,8 @@ namespace languageSchool
             id_servises.Text = Convert.ToInt32(S.ID) + "";
             title_servises.Text = S.Title.ToString();
             cost_servises.Text = Convert.ToInt32(S.Cost) + "";
-            time_servises.Text = Convert.ToInt32(S.DurationInSeconds) / 60 + "";            
-            discount_servises.Text = Convert.ToDouble(S.Discount)*100 + "";
+            time_servises.Text = Convert.ToInt32(S.DurationInSeconds) / 60 + "";
+            discount_servises.Text = Convert.ToDouble(S.Discount) * 100 + "";
             path_servises.Text = S.MainImagePath.ToString();
 
         }
@@ -89,15 +91,15 @@ namespace languageSchool
             int ind = index;
             Service S = ServiswList[ind];
             if (Convert.ToDouble(discount_servises.Text) <= 100 && Convert.ToInt32(S.DurationInSeconds) <= 240)
-            {                       
-            S.Title = title_servises.Text;
-            S.Cost = Convert.ToInt32(cost_servises.Text);               
-            S.DurationInSeconds = Convert.ToInt32(time_servises.Text) * 60;                          
-            S.Discount = Convert.ToDouble(discount_servises.Text)/100;
-            S.MainImagePath = path_servises.Text;
-            MessageBox.Show("Изменения сохранены");
-            ClassBase.EM.SaveChanges();
-            ClassFrame.frame.Navigate(new Admin());
+            {
+                S.Title = title_servises.Text;
+                S.Cost = Convert.ToInt32(cost_servises.Text);
+                S.DurationInSeconds = Convert.ToInt32(time_servises.Text) * 60;
+                S.Discount = Convert.ToDouble(discount_servises.Text) / 100;
+                S.MainImagePath = path_servises.Text;
+                MessageBox.Show("Изменения сохранены");
+                ClassBase.EM.SaveChanges();
+                ClassFrame.frame.Navigate(new Admin());
             }
             else
             {
@@ -110,12 +112,12 @@ namespace languageSchool
             OpenFileDialog OFD = new OpenFileDialog();
             OFD.ShowDialog();
             string Path = OFD.FileName;
-            if(Path != "")
+            if (Path != "")
             {
                 int c = Path.IndexOf('У');
                 string Len = Path.Substring(c);
                 path_servises.Text = Len.ToString();
-            }           
+            }
         }
 
         private void StackPanel_Initialized(object sender, EventArgs e)
@@ -138,7 +140,7 @@ namespace languageSchool
                 TextBlock TB = (TextBlock)sender;
                 Service S = ServiswList[i];
                 TB.Text = Convert.ToInt32(S.Cost) + " ";
-                if (S.Discount> 0)
+                if (S.Discount > 0)
                 {
                     TB.TextDecorations = TextDecorations.Strikethrough;
                 }
@@ -156,7 +158,7 @@ namespace languageSchool
             {
                 TextBlock TB = (TextBlock)sender;
                 Service S = ServiswList[i];
-                if (S.Discount>0)
+                if (S.Discount > 0)
                 {
                     TB.Text = Convert.ToInt32(S.Cost) * (1 - S.Discount) + " рублей ";
                 }
@@ -164,31 +166,31 @@ namespace languageSchool
                 {
                     TB.Text = Convert.ToInt32(S.Cost) + " рублей ";
                 }
-                
+
                 //  i++;
             }
         }
-        
+
         private void TextBlock_time_Initialized(object sender, EventArgs e)
         {
             if (i < ServiswList.Count)
             {
                 TextBlock TB = (TextBlock)sender;
                 Service S = ServiswList[i];
-                TB.Text = "за " + Convert.ToInt32(S.DurationInSeconds) /60 + " минут";
+                TB.Text = "за " + Convert.ToInt32(S.DurationInSeconds) / 60 + " минут";
                 //  i++;
             }
         }
         private void TextBlock_Skidos_Initialized(object sender, EventArgs e)
         {
             if (i < ServiswList.Count)
-            {                
+            {
                 TextBlock TB = (TextBlock)sender;
                 Service S = ServiswList[i];
                 if (S.Discount != 0)
                 {
                     TB.Text = "* скидка " + Convert.ToDouble(S.Discount) * 100 + " %";
-                }                    
+                }
                 //  i++;
             }
         }
@@ -233,7 +235,7 @@ namespace languageSchool
             New_Zap.Visibility = Visibility.Collapsed;
             newZakaz_title.Text = "Название услуги: " + S.Title;
             newZakaz_time.Text = "Время: " + S.DurationInSeconds / 60 + " минут";
-            
+
 
         }
 
@@ -252,23 +254,23 @@ namespace languageSchool
 
         private void Save_new_red_Click(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToInt32(new_time.Text) <= 240 && Convert.ToDouble(new_discount.Text)<=100)
+            if (Convert.ToInt32(new_time.Text) <= 240 && Convert.ToDouble(new_discount.Text) <= 100)
             {
 
-           
 
-            Service ServiceObject = new Service();
-            {
-                ServiceObject.Title = new_title.Text;
-                ServiceObject.Cost = Convert.ToInt32(new_cost.Text);
-                ServiceObject.DurationInSeconds = Convert.ToInt32(new_time.Text)*60;
-                ServiceObject.Discount = Convert.ToDouble(new_discount.Text) /100;
-                ServiceObject.MainImagePath = Convert.ToString(new_path.Text);
-            }
-            ClassBase.EM.Service.Add(ServiceObject);
-            ClassBase.EM.SaveChanges();
-            MessageBox.Show("Пользователь добавлен");
-            ClassFrame.frame.Navigate(new Admin());
+
+                Service ServiceObject = new Service();
+                {
+                    ServiceObject.Title = new_title.Text;
+                    ServiceObject.Cost = Convert.ToInt32(new_cost.Text);
+                    ServiceObject.DurationInSeconds = Convert.ToInt32(new_time.Text) * 60;
+                    ServiceObject.Discount = Convert.ToDouble(new_discount.Text) / 100;
+                    ServiceObject.MainImagePath = Convert.ToString(new_path.Text);
+                }
+                ClassBase.EM.Service.Add(ServiceObject);
+                ClassBase.EM.SaveChanges();
+                MessageBox.Show("Пользователь добавлен");
+                ClassFrame.frame.Navigate(new Admin());
             }
             else
             {
@@ -364,5 +366,119 @@ namespace languageSchool
             ClassFrame.frame.Navigate(new Admin());
 
         }
+
+        private void Sort_vozr_Click(object sender, RoutedEventArgs e)
+        {
+
+            i = -1;
+            ServiswList.Sort((x, y) => x.CostWithDiscount.CompareTo(y.CostWithDiscount));
+            DGServises.Items.Refresh();
+
+        }
+
+        private void Sort_ybuv_Click(object sender, RoutedEventArgs e)
+        {
+            i = -1;
+            ServiswList.Sort((x, y) => x.CostWithDiscount.CompareTo(y.CostWithDiscount));
+            ServiswList.Reverse();
+            DGServises.Items.Refresh();
+        }
+        private void Not_Sort_Click(object sender, RoutedEventArgs e)
+        {
+            ServiswList = ServiswList1;
+            DGServises.ItemsSource = ServiswList;
+            MessageBox.Show(Convert.ToString(ServiswList.Count));
+        }
+        List<Service> ServiseListFilter = new List<Service>();
+
+        private void Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            i = -1;
+            for(int i=0; i<ServiswList.Count; i++)
+            {
+                switch (Filter.SelectedIndex)
+                {
+                    case 1:
+                        ServiswList = ServiswList1;
+                        ServiseListFilter = ServiswList.Where(x => x.Discount <= 0.05).ToList();
+                        ServiswList = ServiseListFilter;
+                        DGServises.ItemsSource = ServiswList;
+                        Statistiks_vivod.Text = Convert.ToString(ServiswList.Count);
+                        break;
+                    case 2:
+                        ServiswList = ServiswList1;
+                        ServiseListFilter = ServiswList.Where(x => x.Discount <= 0.15 && x.Discount >= 0.05).ToList();
+                        ServiswList = ServiseListFilter;
+                        DGServises.ItemsSource = ServiswList;
+                        Statistiks_vivod.Text = Convert.ToString(ServiswList.Count);
+                        
+                        break;
+                    case 3:
+                        ServiswList = ServiswList1;
+                        ServiseListFilter = ServiswList.Where(x => x.Discount <= 0.30 && x.Discount >= 0.15).ToList();
+                        ServiswList = ServiseListFilter;
+                        DGServises.ItemsSource = ServiswList;
+                        Statistiks_vivod.Text = Convert.ToString(ServiswList.Count);                       
+                        break;
+                    case 4:
+                        ServiswList = ServiswList1;
+                        ServiseListFilter = ServiswList.Where(x => x.Discount <= 0.70 && x.Discount >= 0.30).ToList();
+                        ServiswList = ServiseListFilter;
+                        DGServises.ItemsSource = ServiswList;
+                        Statistiks_vivod.Text = Convert.ToString(ServiswList.Count);
+                        break;
+                    case 5:
+                        ServiswList = ServiswList1;
+                        ServiseListFilter = ServiswList.Where(x => x.Discount <= 1.00 && x.Discount >= 0.70).ToList();
+                        ServiswList = ServiseListFilter;
+                        DGServises.ItemsSource = ServiswList;
+                        Statistiks_vivod.Text = Convert.ToString(ServiswList.Count);
+                        break;
+                    case 0:
+                        ServiswList = ServiswList1;
+                        DGServises.ItemsSource = ServiswList;
+                        Statistiks_vivod.Text = Convert.ToString(ServiswList.Count);
+                        break;
+
+                }
+
+            }
+        }
+        private void TBPoisk_TextChanged(object sender, TextChangedEventArgs e)  // поиск по названию
+        {
+            i = -1;
+
+            for (int i = 0; i < ServiswList.Count; i++)
+            {
+                if (TBPoisk.Text != "")
+                {
+                    List<Service> ServiseListPoisk = new List<Service>();
+                    ServiseListPoisk = ServiswList.Where(x => x.Title.Contains(TBPoisk.Text)).ToList();
+                    ServiswList = ServiseListPoisk;
+                    DGServises.ItemsSource = ServiswList;
+                    Statistiks_vivod.Text = Convert.ToString(ServiswList.Count);
+                }
+                else
+                {
+                    if (ServiseListFilter.Count == 0)
+                    {
+                        ServiswList = ServiswList1;
+                        DGServises.ItemsSource = ServiswList;
+                        Statistiks_vivod.Text = Convert.ToString(ServiswList.Count);
+                    }
+                    else
+                    {
+                        ServiswList = ServiseListFilter;
+                        DGServises.ItemsSource = ServiswList;
+                        Statistiks_vivod.Text = Convert.ToString(ServiswList.Count);
+                    }
+                }
+            }
+        }
+
+        private void Statistiks_All_Initialized(object sender, EventArgs e)
+        {
+            Statistiks_All.Text = Convert.ToString(ServiswList.Count);
+        }
     }
-}
+ }
