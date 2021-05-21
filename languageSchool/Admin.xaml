@@ -18,10 +18,10 @@
                     <StackPanel Margin="100 40 10 10">
                         <Button Name="New_Zap" Content="Создать новую запись" Click="New_Zap_Click" Template="{Binding Source={StaticResource ResourceKey=Button_Template__AddNew}}"></Button>
                         <StackPanel>
-                            <TextBlock Margin="5">Количество записей в таблице:</TextBlock>
-                            <TextBlock Name="Statistiks_All" Initialized="Statistiks_All_Initialized"></TextBlock>
-                            <TextBlock Margin="5">Количество записей выведено: </TextBlock>
-                            <TextBlock Name="Statistiks_vivod"></TextBlock>
+                            <TextBlock Style="{StaticResource forTextBlocks}" Margin="5">Количество записей в таблице:</TextBlock>
+                            <TextBlock Style="{StaticResource forTextBlocks}" Name="Statistiks_All" Initialized="Statistiks_All_Initialized" Margin="0"></TextBlock>
+                            <TextBlock Style="{StaticResource forTextBlocks}" Margin="5">Количество записей выведено: </TextBlock>
+                            <TextBlock Style="{StaticResource forTextBlocks}" Name="Statistiks_vivod" Margin="0"></TextBlock>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -29,7 +29,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Name="Sort_vozr" Content="по возрастанию" Template="{Binding Source={StaticResource ResourceKey=Button_Template__AddNew}}" Click="Sort_vozr_Click" Width="180" Margin="5"></Button>
                         <Button Name="Sort_ybuv" Content="по убыванию" Template="{Binding Source={StaticResource ResourceKey=Button_Template__AddNew}}" Click="Sort_ybuv_Click" Width="180"></Button>
-                        <Button Name="Not_Sort" Content="Без сортировки" Template="{Binding Source={StaticResource ResourceKey=Button_Template__AddNew}}" Click="Not_Sort_Click" Width="180" Margin="5"></Button>
+                        <Button Name="Not_Sort" Content="Обновить таблицу" Template="{Binding Source={StaticResource ResourceKey=Button_Template__AddNew}}" Click="Not_Sort_Click" Width="180" Margin="5"></Button>
                     </StackPanel>
                     <TextBlock Style="{StaticResource forTextBlocks}">Выберите размер скидки</TextBlock>
                     <ComboBox Name="Filter" Width="200" SelectionChanged="Filter_SelectionChanged">
@@ -42,8 +42,8 @@
                     </ComboBox>
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock>Введите название услуги:</TextBlock>
-                    <TextBox Name="TBPoisk" TextChanged="TBPoisk_TextChanged" Width="400" Margin="0 0 0 5"></TextBox>
+                    <TextBlock Style="{StaticResource forTextBlocks}">Введите название услуги:</TextBlock>
+                    <TextBox Name="TBPoisk" TextChanged="TBPoisk_TextChanged" Width="400" Margin="0 0 0 5" Style="{StaticResource forTextBoxes}"></TextBox>
                 </StackPanel>
                 <StackPanel Visibility="Collapsed" Name="StackPanel_new_Zap" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource forTextBlocks}">Введите данные</TextBlock>
